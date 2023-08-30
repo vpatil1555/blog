@@ -11,8 +11,9 @@ on:
         type: choice
         description: Choose an environment
         options:
-          - "DEV"
           - "QA-Internal"
+          - "DEV"
+          
 
 jobs:
   deploy:
