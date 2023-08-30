@@ -1,0 +1,27 @@
+name: Manual Trigger Workflow with Options
+
+on:
+  workflow_dispatch:
+    inputs:
+      param1:
+        description: 'Parameter 1'
+        required: true
+        default: 'default_value'
+      param2:
+        description: 'Parameter 2'
+        required: false
+        default: 'another_default'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Run manual trigger script
+      run: |
+        # Access the input parameters using ${{ github.event.inputs.param1 }} and ${{ github.event.inputs.param2 }}
+        echo "Parameter 1: ${{ github.event.inputs.param1 }}"
+        echo "Parameter 2: ${{ github.event.inputs.param2 }}"
