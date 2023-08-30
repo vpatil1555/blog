@@ -3,11 +3,17 @@ name: Environment Deployment
 on:
   push:
     branches:
-      - patch-1i
+      - patch-1
   workflow_dispatch:
     inputs:
+      ref:
+        type: choice
+        description: 'Select a reference'
+        required: true
+        options:
+          - 'patch-1'
+          - 'main'
       environment:
-        default: patch-1
         type: choice
         description: Choose an environment
         options:
