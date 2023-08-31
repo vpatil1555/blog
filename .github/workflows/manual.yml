@@ -23,7 +23,7 @@ jobs:
 
       - name: Deploy to selected environment
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/patch-1" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/patch-1" ]; then
             environment="QA-Internal"
             echo "Deploying to $environment environment..."
           fi
