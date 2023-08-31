@@ -1,27 +1,29 @@
-name: patch
+name: Environment Deployment
 
 on:
+  push:
+    branches:
+      - patch
   workflow_dispatch:
     inputs:
-      param1:
-        description: 'Parameter 1'
-        required: true
-        default: 'default_value'
-      param2:
-        description: 'Parameter 2'
-        required: false
-        default: 'another_default'
+      environment:
+        type: choice
+        description: Choose an environment
+        options:
+          - "QA-Internal"
+          - "DEV"   
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Run manual trigger script
-      run: |
-        # Access the input parameters using ${{ github.event.inputs.param1 }} and ${{ github.event.inputs.param2 }}
-        echo "Parameter 1: ${{ github.event.inputs.param1 }}"
-        echo "Parameter 2: ${{ github.event.inputs.param2 }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to selected environment
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          environment="${{ github.event.inputs.environment }}"
+          echo "Deploying to $environment environment..."
+          
